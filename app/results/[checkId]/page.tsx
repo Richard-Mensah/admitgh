@@ -8,11 +8,15 @@ import TeaserSummary from "@/components/features/payment/TeaserSummary"
 import HonestyPanel from "@/components/features/results/HonestyPanel"
 import { createServerClient } from "@/lib/supabase"
 import { estimateProbability, tierOf } from "@/lib/probability"
+import { verifyPayment } from "@/lib/paystack"
 import type { CutoffHistory, ProgrammeCompetitiveness } from "@/types/db"
 import type { ProgrammeWithProbability } from "@/types/probability"
 import type { ConfidenceLevel } from "@/constants"
 
-type PageProps = { params: Promise<{ checkId: string }> }
+type PageProps = {
+  params: Promise<{ checkId: string }>
+  searchParams: Promise<{ payment?: string }>
+}
 
 export async function generateMetadata(_: PageProps): Promise<Metadata> {
   return {
@@ -21,20 +25,38 @@ export async function generateMetadata(_: PageProps): Promise<Metadata> {
   }
 }
 
-export default async function ResultsPage({ params }: PageProps) {
+export default async function ResultsPage({ params, searchParams }: PageProps) {
   const { checkId } = await params
+  const { payment } = await searchParams
   const supabase = createServerClient()
 
-  // 1. Fetch the check
+  // 1. Fetch the check (include paystack_ref for callback verification)
   const { data: check, error: checkError } = await supabase
     .from("checks")
-    .select("id, aggregate, track, grades, career_interest, paid")
+    .select("id, aggregate, track, grades, career_interest, paid, paystack_ref")
     .eq("id", checkId)
     .single()
 
   if (checkError || !check) notFound()
 
-  // 2. Fetch programmes + probability data
+  // 2. If returning from Paystack and still unpaid, verify directly with Paystack
+  //    (handles the race condition where the webhook hasn't fired yet)
+  if (payment === "success" && !check.paid && check.paystack_ref) {
+    try {
+      const { success } = await verifyPayment(check.paystack_ref)
+      if (success) {
+        await supabase
+          .from("checks")
+          .update({ paid: true, paid_at: new Date().toISOString() })
+          .eq("id", checkId)
+        check.paid = true
+      }
+    } catch {
+      // Webhook will handle it — proceed with current state
+    }
+  }
+
+  // 3. Fetch programmes + probability data
   const { data: programmes } = await supabase
     .from("programmes")
     .select(`id, name, slug, level, track, category, seats, ai_summary, active, institutions(id, name, short_name, region, slug)`)
@@ -63,7 +85,7 @@ export default async function ResultsPage({ params }: PageProps) {
     }
   }
 
-  // 3. Run probability model
+  // 4. Run probability model
   const results: ProgrammeWithProbability[] = []
 
   for (const prog of programmes ?? []) {
