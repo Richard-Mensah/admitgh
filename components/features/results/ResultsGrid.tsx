@@ -8,7 +8,12 @@ import ProgrammeFilters from "@/components/features/results/ProgrammeFilters"
 import HonestyPanel from "@/components/features/results/HonestyPanel"
 import ShareCard from "@/components/features/results/ShareCard"
 import ExpandButton from "@/components/ui/ExpandButton"
+import WhatIfToggle from "@/components/features/whatIf/WhatIfToggle"
+import WhatIfBanner from "@/components/features/whatIf/WhatIfBanner"
+import WhatIfComparison from "@/components/features/whatIf/WhatIfComparison"
+import OutcomeCaptureModal from "@/components/features/outcomes/OutcomeCaptureModal"
 import { useRegionFilter } from "@/hooks/useRegionFilter"
+import { useWhatIf } from "@/hooks/useWhatIf"
 import { CAREER_INTEREST_CATEGORIES } from "@/constants"
 import type { ProgrammeWithProbability } from "@/types/probability"
 import type { ProgrammeCategory } from "@/constants"
@@ -19,14 +24,28 @@ type Props = {
   counts: { safe: number; match: number; reach: number; total: number }
   checkId: string
   aggregate: number
+  grades: Record<string, string>
 }
 
 const INITIAL_VISIBLE = 3
 
-export default function ResultsGrid({ results, careerInterest, counts, checkId, aggregate }: Props) {
+export default function ResultsGrid({ results, careerInterest, counts, checkId, aggregate, grades }: Props) {
   const { selectedRegions, selectedTypes, toggleRegion, toggleType, clearAll, isActive } =
     useRegionFilter()
   const [expandedTiers, setExpandedTiers] = useState<Record<string, boolean>>({})
+  const [showOutcomeModal, setShowOutcomeModal] = useState(false)
+
+  const {
+    isOpen: whatIfOpen,
+    setIsOpen: setWhatIfOpen,
+    change: whatIfChange,
+    pickSubject,
+    pickGrade,
+    newAggregate,
+    delta,
+    isActive: whatIfActive,
+    betterGrades,
+  } = useWhatIf(grades, aggregate)
 
   const toggleTierExpand = (tier: string) =>
     setExpandedTiers((prev) => ({ ...prev, [tier]: !prev[tier] }))
@@ -85,6 +104,28 @@ export default function ResultsGrid({ results, careerInterest, counts, checkId, 
           </div>
         ))}
       </div>
+
+      {/* ── What-if simulator ── */}
+      <WhatIfToggle isOpen={whatIfOpen} onToggle={() => setWhatIfOpen(!whatIfOpen)} />
+      {whatIfOpen && (
+        <div className="space-y-3">
+          <WhatIfBanner
+            grades={grades}
+            change={whatIfChange}
+            onPickSubject={pickSubject}
+            onPickGrade={pickGrade}
+            betterGrades={betterGrades}
+          />
+          {whatIfActive && (
+            <WhatIfComparison
+              results={results}
+              originalAggregate={aggregate}
+              newAggregate={newAggregate}
+              delta={delta}
+            />
+          )}
+        </div>
+      )}
 
       {/* Career interest banner */}
       {careerInterest && careerInterest !== "Show me everything" && (
@@ -163,8 +204,34 @@ export default function ResultsGrid({ results, careerInterest, counts, checkId, 
         </div>
       )}
 
+      {/* ── Report outcome ── */}
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] px-4 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium text-[var(--foreground)]">Got your admission letter? 📬</p>
+          <p className="text-xs text-[var(--muted)] mt-0.5">
+            Tell us the result — it improves predictions for future students.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowOutcomeModal(true)}
+          className="shrink-0 rounded-lg border border-brand-300 bg-brand-50 dark:bg-brand-950/20 dark:border-brand-700 px-4 py-2 text-sm font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-950/40 transition-colors"
+        >
+          Report my result
+        </button>
+      </div>
+
       <ShareCard checkId={checkId} counts={counts} aggregate={aggregate} />
       <HonestyPanel />
+
+      {/* ── Outcome capture modal ── */}
+      {showOutcomeModal && (
+        <OutcomeCaptureModal
+          checkId={checkId}
+          results={results}
+          onClose={() => setShowOutcomeModal(false)}
+        />
+      )}
     </div>
   )
 }

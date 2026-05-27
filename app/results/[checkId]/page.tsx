@@ -178,6 +178,7 @@ export default async function ResultsPage({ params, searchParams }: PageProps) {
               counts={counts}
               checkId={check.id}
               aggregate={check.aggregate}
+              grades={(check.grades as Record<string, string>) ?? {}}
             />
           )}
         </div>
