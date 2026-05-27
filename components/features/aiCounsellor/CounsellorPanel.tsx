@@ -101,7 +101,7 @@ export default function CounsellorPanel({ checkId }: { checkId: string }) {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label="Open AI Counsellor chat"
+          aria-label="Open egaAI Counselor chat"
           className="fixed bottom-6 right-4 z-40 flex items-center gap-2 rounded-full bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-brand-700 active:scale-95 transition-all"
         >
           {/* Chat bubble icon */}
@@ -109,7 +109,7 @@ export default function CounsellorPanel({ checkId }: { checkId: string }) {
             <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
             <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
           </svg>
-          <span className="hidden sm:inline">Ask AI Counsellor</span>
+          <span className="hidden sm:inline">Ask egaAI Counselor</span>
         </button>
       )}
 
@@ -117,7 +117,7 @@ export default function CounsellorPanel({ checkId }: { checkId: string }) {
       {open && (
         <div
           role="dialog"
-          aria-label="AI Counsellor chat"
+          aria-label="egaAI Counselor chat"
           aria-modal="true"
           className="fixed inset-x-0 bottom-0 z-50 sm:inset-auto sm:bottom-6 sm:right-4 sm:w-96"
         >
@@ -135,14 +135,14 @@ export default function CounsellorPanel({ checkId }: { checkId: string }) {
                   AI
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[var(--foreground)]">AI Counsellor</p>
-                  <p className="text-xs text-[var(--muted)]">Powered by Claude · AdmitGH</p>
+                  <p className="text-sm font-semibold text-[var(--foreground)]">egaAI Counselor</p>
+                  <p className="text-xs text-[var(--muted)]">Powered by EGA MI. AdmitGH</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                aria-label="Close AI Counsellor"
+                aria-label="Close egaAI Counselor"
                 className="rounded-lg p-1.5 text-[var(--muted)] hover:bg-[var(--card-bg)] transition-colors"
               >
                 <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden="true">
