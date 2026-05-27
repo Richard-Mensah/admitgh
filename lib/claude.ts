@@ -1,22 +1,27 @@
 // lib/claude.ts
-// Anthropic SDK client and AI Counsellor system prompt builder
+// Groq client and AI Counsellor system prompt builder
 
-import Anthropic from "@anthropic-ai/sdk"
+import Groq from "groq-sdk"
 import type { ProgrammeWithProbability } from "@/types/probability"
 import type { Check } from "@/types/db"
 import { formatPercent } from "@/lib/utils"
 
-/** Singleton Anthropic client — initialised server-side only */
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+/** Lazy singleton — not created at build time, only on first API call */
+let _groq: Groq | null = null
+export function getGroqClient(): Groq {
+  if (!_groq) {
+    if (!process.env.GROQ_API_KEY) throw new Error("GROQ_API_KEY is not set")
+    _groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
+  }
+  return _groq
+}
 
-/** Model for the AI Counsellor — haiku is cost-efficient at ~$0.04/session */
-export const COUNSELLOR_MODEL = "claude-haiku-4-5"
+/** Model for the AI Counsellor — Llama 3.3 70B, free on Groq */
+export const COUNSELLOR_MODEL = "llama-3.3-70b-versatile"
 
 /**
  * Build the system prompt for the AI Counsellor.
- * Pre-loads the student's full check context so Claude can answer
+ * Pre-loads the student's full check context so the model can answer
  * specific questions about their results without extra API calls.
  */
 export function buildCounsellorPrompt(
