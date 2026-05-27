@@ -12,6 +12,15 @@ import { estimateProbability, tierOf } from "@/lib/probability"
 import { TRACKS, TRACK_LABEL, TIER_META } from "@/constants"
 import type { CutoffHistory, ProgrammeCompetitiveness } from "@/types/db"
 import type { ConfidenceLevel } from "@/constants"
+import type { ProbabilityResult } from "@/types/probability"
+
+type ResultRow = {
+  prog: { id: string; name: string; slug: string; level: string; track: string; category: string; seats: number | null }
+  institution: { id: string; name: string; short_name: string; region: string; slug: string }
+  probability: ProbabilityResult
+  tier: "safe" | "match" | "reach"
+  confidence: ConfidenceLevel
+}
 
 export const revalidate = 86400 // 24 hours
 
@@ -66,8 +75,8 @@ export default async function AggregatePage({ params }: PageProps) {
   }
 
   // Run model
-  const results = programmes
-    .map((prog) => {
+  const results: ResultRow[] = programmes
+    .map((prog): ResultRow | null => {
       const institution = Array.isArray(prog.institutions) ? prog.institutions[0] : prog.institutions
       if (!institution) return null
       const history = cutoffsByProgramme.get(prog.id) ?? []
@@ -76,9 +85,9 @@ export default async function AggregatePage({ params }: PageProps) {
         ? "official" : history.some((h) => h.confidence === "reported") ? "reported" : "inferred"
       const probability = estimateProbability(aggregate, { seats: prog.seats }, history, comp ? { applicants_per_seat: comp.applicants_per_seat ?? 1 } : null)
       const tier = tierOf(probability.p, probability.margin)
-      return { prog, institution, probability, tier, confidence }
+      return { prog, institution: institution as ResultRow["institution"], probability, tier, confidence }
     })
-    .filter(Boolean) as NonNullable<ReturnType<typeof results[0]>>[]
+    .filter((r): r is ResultRow => r !== null)
 
   const tierOrder = { safe: 0, match: 1, reach: 2 } as const
   results.sort((a, b) => tierOrder[a.tier] - tierOrder[b.tier] || b.probability.p - a.probability.p)
