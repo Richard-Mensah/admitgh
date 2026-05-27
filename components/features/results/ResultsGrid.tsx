@@ -6,6 +6,7 @@ import { useMemo, useState } from "react"
 import TierSection from "@/components/features/results/TierSection"
 import ProgrammeFilters from "@/components/features/results/ProgrammeFilters"
 import HonestyPanel from "@/components/features/results/HonestyPanel"
+import ShareCard from "@/components/features/results/ShareCard"
 import ExpandButton from "@/components/ui/ExpandButton"
 import { useRegionFilter } from "@/hooks/useRegionFilter"
 import { CAREER_INTEREST_CATEGORIES } from "@/constants"
@@ -16,11 +17,13 @@ type Props = {
   results: ProgrammeWithProbability[]
   careerInterest: string | null
   counts: { safe: number; match: number; reach: number; total: number }
+  checkId: string
+  aggregate: number
 }
 
 const INITIAL_VISIBLE = 3
 
-export default function ResultsGrid({ results, careerInterest, counts }: Props) {
+export default function ResultsGrid({ results, careerInterest, counts, checkId, aggregate }: Props) {
   const { selectedRegions, selectedTypes, toggleRegion, toggleType, clearAll, isActive } =
     useRegionFilter()
   const [expandedTiers, setExpandedTiers] = useState<Record<string, boolean>>({})
@@ -160,6 +163,7 @@ export default function ResultsGrid({ results, careerInterest, counts }: Props) 
         </div>
       )}
 
+      <ShareCard checkId={checkId} counts={counts} aggregate={aggregate} />
       <HonestyPanel />
     </div>
   )

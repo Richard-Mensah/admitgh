@@ -153,6 +153,8 @@ export default async function ResultsPage({ params }: PageProps) {
               results={results}
               careerInterest={check.career_interest ?? null}
               counts={counts}
+              checkId={check.id}
+              aggregate={check.aggregate}
             />
           )}
         </div>

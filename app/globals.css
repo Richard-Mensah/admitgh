@@ -59,16 +59,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Utility: probability bar gradient ──────────────────────────────────── */
-.prob-bar-safe {
-  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
-}
-.prob-bar-match {
-  background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%);
-}
-.prob-bar-reach {
-  background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
-}
+/* ─── Utility: probability bar gradient (kept for reference; bar uses inline style) ── */
+.prob-bar-safe  { background: linear-gradient(90deg, #15803d 0%, #22c55e 100%); }
+.prob-bar-match { background: linear-gradient(90deg, #b45309 0%, #f59e0b 100%); }
+.prob-bar-reach { background: linear-gradient(90deg, #b91c1c 0%, #ef4444 100%); }
 
 /* ─── Hero dot-grid background ───────────────────────────────────────────── */
 .bg-dot-grid {
