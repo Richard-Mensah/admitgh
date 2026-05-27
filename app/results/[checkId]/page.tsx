@@ -9,6 +9,7 @@ import HonestyPanel from "@/components/features/results/HonestyPanel"
 import { createServerClient } from "@/lib/supabase"
 import { estimateProbability, tierOf } from "@/lib/probability"
 import { verifyPayment } from "@/lib/paystack"
+import CounsellorPanel from "@/components/features/aiCounsellor/CounsellorPanel"
 import type { CutoffHistory, ProgrammeCompetitiveness } from "@/types/db"
 import type { ProgrammeWithProbability } from "@/types/probability"
 import type { ConfidenceLevel } from "@/constants"
@@ -182,6 +183,8 @@ export default async function ResultsPage({ params, searchParams }: PageProps) {
         </div>
       </main>
       <Footer />
+      {/* AI Counsellor — floating chat, paid users only */}
+      {check.paid && <CounsellorPanel checkId={check.id} />}
     </>
   )
 }
