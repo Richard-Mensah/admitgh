@@ -108,7 +108,6 @@ export default function GradeInputForm() {
   const [error, setError] = useState<string | null>(null)
 
   // Determine current "furthest active" step for the progress bar
-  const hasTrack = true // always step 1
   const hasCores  = grades.english !== "" && grades.maths !== "" && grades.core3 !== ""
   const hasElects = grades.elective1 !== "" && grades.elective2 !== "" && grades.elective3 !== ""
   const currentStep = !hasCores ? 1 : !hasElects ? 2 : !isComplete ? 3 : 4
