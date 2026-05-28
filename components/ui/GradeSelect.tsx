@@ -1,5 +1,5 @@
 // components/ui/GradeSelect.tsx
-// Grade dropdown — A1 through F9, accessible, mobile-friendly
+// Grade dropdown — A1 through F9, color-coded by quality
 
 import { GRADES } from "@/constants"
 import { cn } from "@/lib/utils"
@@ -13,23 +13,40 @@ type Props = {
   className?: string
 }
 
+function gradeQuality(grade: Grade | ""): { border: string; dot: string } {
+  if (!grade) return { border: "", dot: "" }
+  if (grade === "A1") return { border: "border-l-[3px] border-l-emerald-500", dot: "bg-emerald-500" }
+  if (grade === "B2" || grade === "B3") return { border: "border-l-[3px] border-l-teal-500", dot: "bg-teal-500" }
+  if (grade === "C4" || grade === "C5" || grade === "C6") return { border: "border-l-[3px] border-l-amber-500", dot: "bg-amber-500" }
+  return { border: "border-l-[3px] border-l-red-400", dot: "bg-red-400" }
+}
+
 export default function GradeSelect({ label, value, onChange, disabled = false, className }: Props) {
+  const quality = gradeQuality(value)
+
   return (
-    <div className={cn("flex flex-col gap-1", className)}>
-      <label className="text-xs font-medium text-[var(--muted)] truncate" title={label}>
-        {label}
+    <div className={cn("flex flex-col gap-1.5", className)}>
+      {/* Label — shows colored quality dot when a grade is selected */}
+      <label className="flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] truncate" title={label}>
+        {value !== "" && (
+          <span className={cn("inline-block h-2 w-2 shrink-0 rounded-full", quality.dot)} aria-hidden="true" />
+        )}
+        <span className="truncate">{label}</span>
       </label>
+
+      {/* Select — gains a colored left accent border when a grade is chosen */}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as Grade | "")}
         disabled={disabled}
         className={cn(
           "w-full rounded-lg border border-[var(--border)] bg-[var(--background)]",
-          "px-3 py-2.5 text-sm font-medium text-[var(--foreground)]",
+          "px-3 py-2.5 text-sm font-semibold text-[var(--foreground)]",
           "focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent",
           "disabled:opacity-50 disabled:cursor-not-allowed",
-          "transition-colors hover:border-brand-400",
-          value === "" && "text-[var(--muted)]"
+          "transition-all hover:border-brand-400",
+          value === "" && "text-[var(--muted)] font-normal",
+          value !== "" && quality.border,
         )}
         aria-label={label}
       >
