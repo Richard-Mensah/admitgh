@@ -11,12 +11,8 @@ const GradeEnum = z.enum(GRADES)
 export const GradeInputSchema = z.object({
   track: z.enum(TRACKS),
   grades: z.object({
-    english: GradeEnum,
-    maths: GradeEnum,
-    core3: GradeEnum,
-    elective1: GradeEnum,
-    elective2: GradeEnum,
-    elective3: GradeEnum,
+    core: z.record(z.string(), GradeEnum),
+    electives: z.record(z.string(), GradeEnum),
   }),
   career_interest: z.string().optional(),
   aggregate: z.number().int().min(6).max(36),

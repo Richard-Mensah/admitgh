@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdmitGH /check — High-Fidelity Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060b14;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(20,184,166,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Nav */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,11,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .nav-logo-text { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+  .nav-logo-sub { font-size: 11px; color: #64748b; margin-left: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-link { font-size: 13px; color: #94a3b8; cursor: pointer; }
+  .nav-link:hover { color: #f1f5f9; }
+  .nav-cta {
+    background: #14b8a6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Page layout */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Page header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  /* Step progress */
+  .step-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+  .step-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+  .step-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    border: 2px solid #1e293b;
+    background: #0f172a;
+    color: #64748b;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+  .step-circle.active {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    border-color: #14b8a6;
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(20,184,166,0.15);
+  }
+  .step-circle.done {
+    background: rgba(20,184,166,0.15);
+    border-color: #14b8a6;
+    color: #14b8a6;
+  }
+  .step-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .step-label.active { color: #14b8a6; }
+  .step-connector {
+    width: 80px;
+    height: 2px;
+    background: #1e293b;
+    margin-bottom: 18px;
+    flex-shrink: 0;
+  }
+  .step-connector.done {
+    background: linear-gradient(90deg, #14b8a6, #14b8a6);
+  }
+
+  /* Main glass card */
+  .glass-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(20,184,166,0.05);
+  }
+
+  /* Live aggregate bar */
+  .live-bar {
+    background: rgba(20,184,166,0.07);
+    border-bottom: 1px solid rgba(20,184,166,0.12);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .live-bar-label {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    background: #14b8a6;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .live-aggregate {
+    font-size: 22px;
+    font-weight: 800;
+    color: #14b8a6;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+  }
+  .live-aggregate span {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .live-progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .live-progress-bar {
+    width: 120px;
+    height: 4px;
+    background: #1e293b;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .live-progress-fill {
+    width: 16%;
+    height: 100%;
+    background: linear-gradient(90deg, #14b8a6, #0d9488);
+    border-radius: 2px;
+  }
+  .live-progress-text {
+    font-size: 11px;
+    color: #64748b;
+    white-space: nowrap;
+  }
+
+  /* Card body */
+  .card-body { padding: 28px; }
+  .card-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+  }
+  .card-section-sub {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+
+  /* Track tiles */
+  .track-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 0;
+  }
+  .track-tile {
+    background: rgba(30,41,59,0.5);
+    border: 1.5px solid #1e293b;
+    border-radius: 12px;
+    padding: 16px 8px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .track-tile:hover {
+    border-color: rgba(20,184,166,0.4);
+    background: rgba(20,184,166,0.05);
+  }
+  .track-tile.selected {
+    background: rgba(20,184,166,0.12);
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 3px rgba(20,184,166,0.1), inset 0 1px 0 rgba(20,184,166,0.2);
+  }
+  .track-emoji { font-size: 22px; margin-bottom: 8px; display: block; }
+  .track-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .track-tile.selected .track-name { color: #14b8a6; }
+  .track-desc {
+    font-size: 9px;
+    color: #475569;
+    line-height: 1.3;
+    display: block;
+  }
+  .track-tile.selected .track-desc { color: #5eead4; opacity: 0.7; }
+  .check-badge {
+    width: 16px; height: 16px;
+    background: #14b8a6;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 6px auto 0;
+  }
+
+  /* Grade inputs section */
+  .subjects-section { margin-top: 24px; }
+  .subjects-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .subjects-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1e293b;
+  }
+  .grade-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .grade-field {
+    background: rgba(15,23,42,0.6);
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 12px;
+    transition: border-color 0.2s;
+  }
+  .grade-field:hover { border-color: rgba(20,184,166,0.3); }
+  .grade-field.filled { border-color: rgba(20,184,166,0.4); }
+  .field-label {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    letter-spacing: 0.3px;
+  }
+  .grade-select {
+    width: 100%;
+    background: rgba(30,41,59,0.6);
+    border: 1px solid #334155;
+    border-radius: 7px;
+    padding: 8px 10px;
+    color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 600;
+    appearance: none;
+    cursor: pointer;
+  }
+  .grade-select.has-value { border-color: rgba(20,184,166,0.5); color: #14b8a6; }
+  .grade-placeholder { color: #475569; font-size: 12px; }
+
+  /* Electives section with named subjects */
+  .elective-named-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .elective-subject-card {
+    background: rgba(15,23,42,0.6);
+    border: 1.5px solid #1e293b;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .elective-subject-card.has-grade { border-color: rgba(20,184,166,0.35); }
+  .elective-subject-info { flex: 1; min-width: 0; }
+  .elective-subject-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .elective-subject-tag {
+    font-size: 9px;
+    color: #64748b;
+    background: #1e293b;
+    border-radius: 4px;
+    padding: 2px 5px;
+    display: inline-block;
+  }
+  .elective-grade-select {
+    width: 64px;
+    flex-shrink: 0;
+    background: rgba(30,41,59,0.8);
+    border: 1px solid #334155;
+    border-radius: 7px;
+    padding: 6px 8px;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  /* Divider */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #1e293b, transparent);
+    margin: 24px 0;
+  }
+
+  /* CTA */
+  .card-footer {
+    padding: 20px 28px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(6,11,20,0.4);
+  }
+  .footer-hint {
+    font-size: 12px;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .submit-btn {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.45;
+    box-shadow: 0 4px 15px rgba(20,184,166,0.2);
+  }
+  .submit-btn.ready {
+    opacity: 1;
+    box-shadow: 0 4px 20px rgba(20,184,166,0.4);
+  }
+
+  /* Annotation layer */
+  .annotations {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .annotation {
+    background: rgba(20,184,166,0.05);
+    border: 1px solid rgba(20,184,166,0.15);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .ann-icon {
+    width: 28px; height: 28px;
+    background: rgba(20,184,166,0.15);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .ann-title { font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 3px; }
+  .ann-desc { font-size: 11px; color: #64748b; line-height: 1.4; }
+
+  .mockup-label {
+    text-align: center;
+    font-size: 11px;
+    color: #475569;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">🎓</div>
+    <span class="nav-logo-text">AdmitGH</span>
+    <span class="nav-logo-sub">Honest Admission Chances</span>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link">Check Chances</span>
+    <span class="nav-link">How it works</span>
+    <button class="nav-cta">Get Started →</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Check Your Admission Chances</h1>
+    <p>Enter your WASSCE grades — we'll match them honestly against real cut-off data</p>
+  </div>
+
+  <!-- Step progress -->
+  <div class="step-progress">
+    <div class="step-dot">
+      <div class="step-circle active">1</div>
+      <div class="step-label active">Track</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-dot">
+      <div class="step-circle">2</div>
+      <div class="step-label">Core</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-dot">
+      <div class="step-circle">3</div>
+      <div class="step-label">Electives</div>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-dot">
+      <div class="step-circle">4</div>
+      <div class="step-label">Interest</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: TRACK SELECTION (shown) -->
+  <div class="glass-card" style="margin-bottom: 28px;">
+
+    <!-- Live aggregate bar -->
+    <div class="live-bar">
+      <div class="live-bar-label">
+        <div class="live-dot"></div>
+        Live Aggregate
+      </div>
+      <div class="live-aggregate">— <span>/ 6 filled</span></div>
+      <div class="live-progress-wrap">
+        <div class="live-progress-bar">
+          <div class="live-progress-fill"></div>
+        </div>
+        <div class="live-progress-text">1 of 4 steps</div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-section-title">Select your programme track</div>
+      <div class="card-section-sub">Choose the track you studied under in secondary school</div>
+
+      <div class="track-grid">
+        <div class="track-tile selected">
+          <span class="track-emoji">🔬</span>
+          <span class="track-name">Science</span>
+          <span class="track-desc">Physics, Chemistry, Biology…</span>
+          <div class="check-badge">✓</div>
+        </div>
+        <div class="track-tile">
+          <span class="track-emoji">🎭</span>
+          <span class="track-name">Arts</span>
+          <span class="track-desc">Literature, History, French…</span>
+        </div>
+        <div class="track-tile">
+          <span class="track-emoji">📊</span>
+          <span class="track-name">Business</span>
+          <span class="track-desc">Accounting, Economics…</span>
+        </div>
+        <div class="track-tile">
+          <span class="track-emoji">⚙️</span>
+          <span class="track-name">Vocational</span>
+          <span class="track-desc">Technical &amp; craft subjects</span>
+        </div>
+        <div class="track-tile">
+          <span class="track-emoji">🌍</span>
+          <span class="track-name">General Arts</span>
+          <span class="track-desc">Mixed electives</span>
+        </div>
+      </div>
+
+      <!-- Core subjects (auto-revealed after track pick) -->
+      <div class="subjects-section">
+        <div class="subjects-title">Core subjects (mandatory)</div>
+        <div class="grade-grid">
+          <div class="grade-field">
+            <span class="field-label">English Language</span>
+            <select class="grade-select"><option value="" class="grade-placeholder">Select grade</option></select>
+          </div>
+          <div class="grade-field">
+            <span class="field-label">Core Mathematics</span>
+            <select class="grade-select"><option value="" class="grade-placeholder">Select grade</option></select>
+          </div>
+          <div class="grade-field">
+            <span class="field-label">Social Studies</span>
+            <select class="grade-select"><option value="" class="grade-placeholder">Select grade</option></select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <div class="footer-hint">💡 Fill all 6 grades to unlock your results</div>
+      <button class="submit-btn">Check My Chances →</button>
+    </div>
+  </div>
+
+
+  <!-- STEP 3 PREVIEW: Science Electives (annotated) -->
+  <div class="mockup-label">↓ Step 3 preview — Science track electives (named subjects)</div>
+
+  <div class="glass-card">
+    <div class="live-bar">
+      <div class="live-bar-label">
+        <div class="live-dot"></div>
+        Live Aggregate
+      </div>
+      <div class="live-aggregate" style="color:#10b981;">8 <span>/ 6 filled ✓</span></div>
+      <div class="live-progress-wrap">
+        <div class="live-progress-bar">
+          <div class="live-progress-fill" style="width:75%;"></div>
+        </div>
+        <div class="live-progress-text">3 of 4 steps</div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-section-title">Elective subjects</div>
+      <div class="card-section-sub">Science track — enter grades for your elective subjects</div>
+
+      <div class="elective-named-grid">
+        <div class="elective-subject-card has-grade">
+          <div class="elective-subject-info">
+            <div class="elective-subject-name">Physics</div>
+            <span class="elective-subject-tag">Elective</span>
+          </div>
+          <select class="elective-grade-select" style="border-color:rgba(20,184,166,0.5);color:#14b8a6;">A1</select>
+        </div>
+        <div class="elective-subject-card has-grade">
+          <div class="elective-subject-info">
+            <div class="elective-subject-name">Chemistry</div>
+            <span class="elective-subject-tag">Elective</span>
+          </div>
+          <select class="elective-grade-select" style="border-color:rgba(20,184,166,0.5);color:#14b8a6;">B2</select>
+        </div>
+        <div class="elective-subject-card has-grade">
+          <div class="elective-subject-info">
+            <div class="elective-subject-name">Biology</div>
+            <span class="elective-subject-tag">Elective</span>
+          </div>
+          <select class="elective-grade-select" style="border-color:rgba(20,184,166,0.5);color:#14b8a6;">B3</select>
+        </div>
+        <div class="elective-subject-card">
+          <div class="elective-subject-info">
+            <div class="elective-subject-name">Elective Science</div>
+            <span class="elective-subject-tag">Elective</span>
+          </div>
+          <select class="elective-grade-select">—</select>
+        </div>
+        <div class="elective-subject-card">
+          <div class="elective-subject-info">
+            <div class="elective-subject-name">Elective Mathematics</div>
+            <span class="elective-subject-tag">Elective</span>
+          </div>
+          <select class="elective-grade-select">—</select>
+        </div>
+        <div class="elective-subject-card" style="border-style:dashed;opacity:0.5;align-items:center;justify-content:center;">
+          <div style="text-align:center;">
+            <div style="font-size:18px;color:#475569;margin-bottom:4px;">+</div>
+            <div style="font-size:10px;color:#475569;">Optional 6th elective</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div style="background:rgba(20,184,166,0.05);border:1px solid rgba(20,184,166,0.12);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:20px;">💡</div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#5eead4;margin-bottom:2px;">Best 3 count toward your aggregate</div>
+          <div style="font-size:12px;color:#64748b;">We automatically pick your highest-scoring 3 electives. Fill as many as you sat.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="footer-hint">3 of 5 electives filled</div>
+      <button class="submit-btn ready">Check My Chances →</button>
+    </div>
+  </div>
+
+  <!-- Design annotations -->
+  <div class="annotations">
+    <div class="annotation">
+      <div class="ann-icon">⚡</div>
+      <div>
+        <div class="ann-title">Live aggregate bar</div>
+        <div class="ann-desc">Pinned to top of card. Updates instantly as grades are selected. Shows progress toward 6 filled grades.</div>
+      </div>
+    </div>
+    <div class="annotation">
+      <div class="ann-icon">🔬</div>
+      <div>
+        <div class="ann-title">Named elective subjects</div>
+        <div class="ann-desc">Science track shows: Physics, Chemistry, Biology, Elective Science, Elective Maths. Proper WASSCE names, not generic slots.</div>
+      </div>
+    </div>
+    <div class="annotation">
+      <div class="ann-icon">📚</div>
+      <div>
+        <div class="ann-title">Social Studies in all cores</div>
+        <div class="ann-desc">All 5 tracks (including Science) now show Social Studies as the third core subject — not "Integrated Science".</div>
+      </div>
+    </div>
+    <div class="annotation">
+      <div class="ann-icon">🎨</div>
+      <div>
+        <div class="ann-title">Glassmorphism design</div>
+        <div class="ann-desc">Dark bg, frosted glass card, teal glow accents. Teal activates on selection. Existing brand palette, elevated.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

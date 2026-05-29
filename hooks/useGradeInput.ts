@@ -3,63 +3,68 @@
 // Grade state + live aggregate calculation
 
 import { useState, useCallback } from "react"
-import { GRADE_VALUE, GRADES, TRACKS, CORE_SUBJECTS } from "@/constants"
+import { GRADE_VALUE, CORE_SUBJECTS, ELECTIVE_SUBJECTS } from "@/constants"
 import { calculateAggregate } from "@/lib/probability"
 import type { Track, Grade } from "@/constants"
 
 export type GradeState = {
-  english: Grade | ""
-  maths: Grade | ""
-  core3: Grade | ""
-  elective1: Grade | ""
-  elective2: Grade | ""
-  elective3: Grade | ""
+  core: Record<string, Grade | "">
+  electives: Record<string, Grade | "">
 }
 
-const EMPTY_GRADES: GradeState = {
-  english: "",
-  maths: "",
-  core3: "",
-  elective1: "",
-  elective2: "",
-  elective3: "",
+function initGradeState(track: Track): GradeState {
+  return {
+    core: Object.fromEntries(CORE_SUBJECTS[track].map((s) => [s, ""])),
+    electives: Object.fromEntries(ELECTIVE_SUBJECTS[track].map((s) => [s, ""])),
+  }
+}
+
+function gradeValues(map: Record<string, Grade | "">): number[] {
+  return Object.values(map)
+    .filter((g) => g !== "")
+    .map((g) => GRADE_VALUE[g as Grade])
 }
 
 export function useGradeInput() {
-  const [track, setTrack] = useState<Track>("science")
-  const [grades, setGrades] = useState<GradeState>(EMPTY_GRADES)
+  const [track, setTrackState] = useState<Track>("science")
+  const [grades, setGrades] = useState<GradeState>(() => initGradeState("science"))
   const [careerInterest, setCareerInterest] = useState<string>("")
 
-  const setGrade = useCallback((field: keyof GradeState, grade: Grade | "") => {
-    setGrades((prev) => ({ ...prev, [field]: grade }))
-  }, [])
+  const setGrade = useCallback(
+    (section: "core" | "electives", subject: string, grade: Grade | "") => {
+      setGrades((prev: GradeState): GradeState => {
+        if (section === "core") {
+          return { ...prev, core: { ...prev.core, [subject]: grade } }
+        }
+        return { ...prev, electives: { ...prev.electives, [subject]: grade } }
+      })
+    },
+    []
+  )
 
-  const resetGrades = useCallback(() => {
-    setGrades(EMPTY_GRADES)
-  }, [])
+  const coreVals = gradeValues(grades.core)
 
-  // Compute aggregate from filled grades (only count filled slots)
-  const gradeValues = Object.values(grades)
-    .filter((g): g is Grade => g !== "")
-    .map((g) => GRADE_VALUE[g])
+  // Sort ascending (best grades first), take top 3
+  const allElectiveVals = gradeValues(grades.electives).sort((a, b) => a - b)
+  const best3Electives = allElectiveVals.slice(0, 3)
+  const filledElectiveCount = allElectiveVals.length
 
-  const aggregate = gradeValues.length === 6 ? calculateAggregate(gradeValues) : null
+  // All 4 cores required + at least 3 electives
+  const isComplete = coreVals.length === 4 && filledElectiveCount >= 3
 
-  const isComplete =
-    grades.english !== "" &&
-    grades.maths !== "" &&
-    grades.core3 !== "" &&
-    grades.elective1 !== "" &&
-    grades.elective2 !== "" &&
-    grades.elective3 !== ""
+  // 4 cores + best 3 electives = 7 grades; calculateAggregate picks best 6
+  const aggregate = isComplete
+    ? calculateAggregate([...coreVals, ...best3Electives])
+    : null
 
-  const core3Label = CORE_SUBJECTS[track][2] // "Integrated Science" or "Social Studies"
+  // Progress counter: 4 cores + up to 3 electives = 7 total
+  const totalFilledGrades = coreVals.length + Math.min(3, filledElectiveCount)
 
   return {
     track,
     setTrack: (t: Track) => {
-      setTrack(t)
-      resetGrades()
+      setTrackState(t)
+      setGrades(initGradeState(t))
     },
     grades,
     setGrade,
@@ -67,6 +72,8 @@ export function useGradeInput() {
     setCareerInterest,
     aggregate,
     isComplete,
-    core3Label,
+    coreCount: coreVals.length,
+    filledElectiveCount,
+    totalFilledGrades,
   }
 }

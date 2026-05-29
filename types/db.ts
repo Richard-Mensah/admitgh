@@ -81,12 +81,8 @@ export type Check = {
 }
 
 export type GradesJson = {
-  english: string
-  maths: string
-  core3: string // Integrated Science or Social Studies
-  elective1: string
-  elective2: string
-  elective3: string
+  core: Record<string, string>
+  electives: Record<string, string>
 }
 
 export type Outcome = {

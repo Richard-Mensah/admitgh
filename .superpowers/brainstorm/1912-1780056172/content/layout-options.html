@@ -1,0 +1,165 @@
+<h2>Pick a dashboard layout for the /check page</h2>
+<p class="subtitle">All three are high-fidelity, modern redesigns — choose the spatial structure that feels right</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0f172a;padding:16px;min-height:260px;font-family:system-ui;">
+      <!-- Sidebar + Main Panel -->
+      <div style="display:flex;gap:10px;height:240px;">
+        <div style="width:110px;background:#1e293b;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:9px;color:#14b8a6;font-weight:700;letter-spacing:1px;margin-bottom:4px;">STEPS</div>
+          <div style="background:#14b8a6;border-radius:5px;padding:6px 8px;font-size:9px;color:#fff;font-weight:600;">① Track</div>
+          <div style="background:#1e3a4a;border-radius:5px;padding:6px 8px;font-size:9px;color:#64748b;">② Core</div>
+          <div style="background:#1e3a4a;border-radius:5px;padding:6px 8px;font-size:9px;color:#64748b;">③ Electives</div>
+          <div style="background:#1e3a4a;border-radius:5px;padding:6px 8px;font-size:9px;color:#64748b;">④ Interest</div>
+          <div style="margin-top:auto;background:#0d2b23;border:1px solid #14b8a6;border-radius:6px;padding:8px;text-align:center;">
+            <div style="font-size:18px;color:#14b8a6;font-weight:700;">—</div>
+            <div style="font-size:8px;color:#64748b;">Aggregate</div>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#1e293b;border-radius:8px;padding:10px;">
+            <div style="font-size:9px;color:#94a3b8;margin-bottom:8px;font-weight:600;">SELECT YOUR PROGRAMME TRACK</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <div style="background:#14b8a6;color:#fff;border-radius:5px;padding:4px 8px;font-size:8px;font-weight:600;">Science ✓</div>
+              <div style="background:#334155;color:#94a3b8;border-radius:5px;padding:4px 8px;font-size:8px;">Arts</div>
+              <div style="background:#334155;color:#94a3b8;border-radius:5px;padding:4px 8px;font-size:8px;">Business</div>
+              <div style="background:#334155;color:#94a3b8;border-radius:5px;padding:4px 8px;font-size:8px;">Vocational</div>
+              <div style="background:#334155;color:#94a3b8;border-radius:5px;padding:4px 8px;font-size:8px;">General</div>
+            </div>
+          </div>
+          <div style="background:#1e293b;border-radius:8px;padding:10px;flex:1;">
+            <div style="font-size:9px;color:#94a3b8;margin-bottom:8px;font-weight:600;">CORE SUBJECTS</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+              <div style="background:#0f172a;border-radius:5px;padding:6px;">
+                <div style="font-size:7px;color:#64748b;margin-bottom:3px;">English</div>
+                <div style="font-size:9px;color:#e2e8f0;border:1px solid #334155;border-radius:3px;padding:2px 4px;">A1 ▼</div>
+              </div>
+              <div style="background:#0f172a;border-radius:5px;padding:6px;">
+                <div style="font-size:7px;color:#64748b;margin-bottom:3px;">Core Maths</div>
+                <div style="font-size:9px;color:#e2e8f0;border:1px solid #334155;border-radius:3px;padding:2px 4px;">B2 ▼</div>
+              </div>
+              <div style="background:#0f172a;border-radius:5px;padding:6px;">
+                <div style="font-size:7px;color:#64748b;margin-bottom:3px;">Social Studies</div>
+                <div style="font-size:9px;color:#64748b;border:1px solid #334155;border-radius:3px;padding:2px 4px;">— ▼</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Sidebar Navigation Dashboard</h3>
+      <p>Persistent left sidebar shows steps + live aggregate. Main panel fills with the active step. Professional, app-like feel. Best for power users who want clear orientation.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#060b14;padding:16px;min-height:260px;font-family:system-ui;position:relative;overflow:hidden;">
+      <!-- Background gradient glow -->
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:150px;background:radial-gradient(circle,rgba(20,184,166,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+      <!-- Centered Glass Cards -->
+      <div style="display:flex;justify-content:center;margin-bottom:10px;">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="width:24px;height:24px;border-radius:50%;background:#14b8a6;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;">1</div>
+          <div style="width:30px;height:1px;background:linear-gradient(90deg,#14b8a6,#334155);"></div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:10px;color:#64748b;">2</div>
+          <div style="width:30px;height:1px;background:#334155;"></div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:10px;color:#64748b;">3</div>
+          <div style="width:30px;height:1px;background:#334155;"></div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:10px;color:#64748b;">4</div>
+        </div>
+      </div>
+      <div style="background:rgba(30,41,59,0.6);backdrop-filter:blur(8px);border:1px solid rgba(20,184,166,0.2);border-radius:12px;padding:14px;">
+        <div style="font-size:11px;color:#f1f5f9;font-weight:700;margin-bottom:4px;">Select Your Programme Track</div>
+        <div style="font-size:8px;color:#64748b;margin-bottom:10px;">Choose the track you studied under</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;">
+          <div style="background:rgba(20,184,166,0.15);border:1px solid #14b8a6;border-radius:7px;padding:7px 4px;text-align:center;">
+            <div style="font-size:14px;margin-bottom:2px;">🔬</div>
+            <div style="font-size:7px;color:#14b8a6;font-weight:600;">Science</div>
+          </div>
+          <div style="background:rgba(30,41,59,0.4);border:1px solid #1e293b;border-radius:7px;padding:7px 4px;text-align:center;">
+            <div style="font-size:14px;margin-bottom:2px;">🎭</div>
+            <div style="font-size:7px;color:#64748b;">Arts</div>
+          </div>
+          <div style="background:rgba(30,41,59,0.4);border:1px solid #1e293b;border-radius:7px;padding:7px 4px;text-align:center;">
+            <div style="font-size:14px;margin-bottom:2px;">📊</div>
+            <div style="font-size:7px;color:#64748b;">Business</div>
+          </div>
+          <div style="background:rgba(30,41,59,0.4);border:1px solid #1e293b;border-radius:7px;padding:7px 4px;text-align:center;">
+            <div style="font-size:14px;margin-bottom:2px;">⚙️</div>
+            <div style="font-size:7px;color:#64748b;">Vocational</div>
+          </div>
+          <div style="background:rgba(30,41,59,0.4);border:1px solid #1e293b;border-radius:7px;padding:7px 4px;text-align:center;">
+            <div style="font-size:14px;margin-bottom:2px;">🌍</div>
+            <div style="font-size:7px;color:#64748b;">General</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Glassmorphism Centered Wizard</h3>
+      <p>Dark background with frosted-glass cards, teal glow accents, smooth step transitions. Premium, modern feel. Closest to what high-end SaaS apps look like in 2025.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0f1a;padding:16px;min-height:260px;font-family:system-ui;">
+      <!-- Split: Form Left + Live Panel Right -->
+      <div style="display:flex;gap:8px;height:240px;">
+        <div style="flex:1.2;display:flex;flex-direction:column;gap:7px;">
+          <!-- Progress bar top -->
+          <div style="background:#1e293b;border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+            <div style="width:16px;height:16px;border-radius:50%;background:#14b8a6;font-size:7px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">1</div>
+            <div style="flex:1;height:2px;background:linear-gradient(90deg,#14b8a6 30%,#334155 30%);border-radius:1px;"></div>
+            <div style="width:16px;height:16px;border-radius:50%;background:#334155;font-size:7px;color:#64748b;display:flex;align-items:center;justify-content:center;">2</div>
+            <div style="flex:1;height:2px;background:#334155;border-radius:1px;"></div>
+            <div style="width:16px;height:16px;border-radius:50%;background:#334155;font-size:7px;color:#64748b;display:flex;align-items:center;justify-content:center;">3</div>
+          </div>
+          <div style="background:#1e293b;border-radius:8px;padding:10px;flex:1;">
+            <div style="font-size:8px;color:#94a3b8;font-weight:600;margin-bottom:8px;">TRACK SELECTION</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+              <div style="background:#14b8a6;border-radius:5px;padding:5px 7px;font-size:8px;color:#fff;font-weight:600;">🔬 Science ✓</div>
+              <div style="background:#1e3a4a;border-radius:5px;padding:5px 7px;font-size:8px;color:#64748b;">🎭 Arts</div>
+              <div style="background:#1e3a4a;border-radius:5px;padding:5px 7px;font-size:8px;color:#64748b;">📊 Business</div>
+              <div style="background:#1e3a4a;border-radius:5px;padding:5px 7px;font-size:8px;color:#64748b;">⚙️ Vocational</div>
+            </div>
+          </div>
+        </div>
+        <!-- Live Panel Right -->
+        <div style="width:110px;background:#0d1f2d;border:1px solid rgba(20,184,166,0.2);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:8px;color:#14b8a6;font-weight:700;letter-spacing:1px;">LIVE PREVIEW</div>
+          <div style="text-align:center;padding:8px 0;">
+            <div style="font-size:26px;color:#14b8a6;font-weight:700;">—</div>
+            <div style="font-size:7px;color:#64748b;">Aggregate</div>
+          </div>
+          <div style="background:#1e293b;border-radius:5px;padding:6px;">
+            <div style="font-size:7px;color:#64748b;margin-bottom:4px;">COMPLETION</div>
+            <div style="height:4px;background:#334155;border-radius:2px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:#14b8a6;border-radius:2px;"></div>
+            </div>
+            <div style="font-size:7px;color:#64748b;margin-top:3px;">1 / 4 steps</div>
+          </div>
+          <div style="background:#1e293b;border-radius:5px;padding:6px;">
+            <div style="font-size:7px;color:#64748b;margin-bottom:4px;">TRACK</div>
+            <div style="font-size:9px;color:#14b8a6;font-weight:600;">Science</div>
+          </div>
+          <div style="margin-top:auto;">
+            <div style="background:#14b8a6;border-radius:5px;padding:5px;text-align:center;font-size:8px;color:#fff;font-weight:600;opacity:0.4;">Check →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Split Form + Live Preview Panel</h3>
+      <p>Form on the left, persistent live panel on the right showing aggregate, progress, and selected values in real-time. More information-dense. Great for "see results as you go" experience.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Click an option to select it, then let me know in the terminal.</p>

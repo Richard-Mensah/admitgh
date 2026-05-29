@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final 5 Tracks — Review</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #060b14;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #f1f5f9;
+    padding: 32px 20px 60px;
+  }
+  h2 { font-size: 22px; font-weight: 800; color: #f1f5f9; margin-bottom: 6px; text-align: center; }
+  .sub { font-size: 13px; color: #64748b; margin-bottom: 32px; text-align: center; }
+
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .track-card {
+    background: rgba(15,23,42,0.7);
+    border: 1.5px solid #1e293b;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .track-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .track-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .track-title { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+  .track-subtitle { font-size: 11px; color: #64748b; margin-top: 1px; }
+  .track-body { padding: 14px 18px; }
+
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: #475569;
+    margin-bottom: 8px; margin-top: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #1e293b; }
+
+  .subject-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 7px 10px; background: rgba(30,41,59,0.4);
+    border-radius: 7px; margin-bottom: 5px; gap: 8px;
+  }
+  .subject-name { font-size: 12px; color: #e2e8f0; font-weight: 500; flex: 1; }
+  .subject-type {
+    font-size: 9px; padding: 2px 7px; border-radius: 4px; font-weight: 600; flex-shrink: 0;
+  }
+  .type-elective { background: rgba(20,184,166,0.1); color: #5eead4; }
+  .type-lang { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .badge-new {
+    font-size: 9px; padding: 1px 6px; border-radius: 4px;
+    font-weight: 700; background: rgba(16,185,129,0.15); color: #34d399;
+  }
+
+  /* Wide card spans full row */
+  .wide { grid-column: span 2; }
+
+  .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+</style>
+</head>
+<body>
+
+<h2>Final Track Structure — 5 Tracks</h2>
+<p class="sub">Science · General Arts · Business · Vocational · Home Economics — confirm all subjects are correct</p>
+
+<div class="tracks-grid">
+
+  <!-- 1. Science -->
+  <div class="track-card" style="border-color:rgba(16,185,129,0.3);">
+    <div class="track-header" style="background:rgba(16,185,129,0.07);">
+      <div class="track-icon" style="background:rgba(16,185,129,0.15);">🔬</div>
+      <div>
+        <div class="track-title">Science</div>
+        <div class="track-subtitle">4 elective subjects</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Physics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Chemistry</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Biology</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+    </div>
+  </div>
+
+  <!-- 2. Business -->
+  <div class="track-card" style="border-color:rgba(245,158,11,0.3);">
+    <div class="track-header" style="background:rgba(245,158,11,0.07);">
+      <div class="track-icon" style="background:rgba(245,158,11,0.15);">📊</div>
+      <div>
+        <div class="track-title">Business</div>
+        <div class="track-subtitle">5 elective subjects</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Financial Accounting</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Cost Accounting</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Business Management</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Economics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+    </div>
+  </div>
+
+  <!-- 3. Vocational -->
+  <div class="track-card" style="border-color:rgba(239,68,68,0.3);">
+    <div class="track-header" style="background:rgba(239,68,68,0.07);">
+      <div class="track-icon" style="background:rgba(239,68,68,0.15);">⚙️</div>
+      <div>
+        <div class="track-title">Vocational</div>
+        <div class="track-subtitle">8 elective subjects</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Electronics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Auto Mechanics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Building Construction</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Woodwork</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Textiles</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Catering</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Visual Arts</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Technical Drawing</span><span class="subject-type type-elective">Elective</span></div>
+    </div>
+  </div>
+
+  <!-- 4. Home Economics — NEW TRACK -->
+  <div class="track-card" style="border-color:rgba(236,72,153,0.35);">
+    <div class="track-header" style="background:rgba(236,72,153,0.07);">
+      <div class="track-icon" style="background:rgba(236,72,153,0.15);">🏠</div>
+      <div>
+        <div class="track-title">Home Economics <span class="badge-new" style="margin-left:6px;">New Track</span></div>
+        <div class="track-subtitle">3 elective subjects</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Food and Nutrition</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Management in Living</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Clothing and Textiles</span><span class="subject-type type-elective">Elective</span></div>
+    </div>
+  </div>
+
+  <!-- 5. General Arts — wide -->
+  <div class="track-card wide" style="border-color:rgba(59,130,246,0.35);">
+    <div class="track-header" style="background:rgba(59,130,246,0.07);">
+      <div class="track-icon" style="background:rgba(59,130,246,0.15);">🌍</div>
+      <div>
+        <div class="track-title">General Arts</div>
+        <div class="track-subtitle">21 electives: 10 arts subjects + 11 Ghanaian languages</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- Left: Arts subjects -->
+        <div>
+          <div class="section-label">Arts electives</div>
+          <div class="subject-row"><span class="subject-name">Literature in English</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">History</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Geography</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Government</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Economics</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">French</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Christian Religious Studies</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Islamic Religious Studies</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">General Knowledge in Art</span><span class="subject-type type-elective">Elective</span></div>
+        </div>
+
+        <!-- Right: Languages -->
+        <div>
+          <div class="section-label">Ghanaian Languages (WASSCE)</div>
+          <div class="lang-grid">
+            <div class="subject-row"><span class="subject-name">Twi (Asante)</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Twi (Akuapem)</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Fante</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Ga</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Ewe</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Dagbani</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Nzema</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Dangme</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Dagaare</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Gonja</span><span class="subject-type type-lang">Language</span></div>
+            <div class="subject-row"><span class="subject-name">Kasem</span><span class="subject-type type-lang">Language</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Summary -->
+<div style="max-width:1100px;margin:24px auto 0;">
+  <div style="background:rgba(20,184,166,0.05);border:1px solid rgba(20,184,166,0.2);border-radius:12px;padding:16px 20px;">
+    <div style="font-size:12px;font-weight:700;color:#5eead4;margin-bottom:8px;">Final 5 tracks · Confirm in terminal</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+      <div style="text-align:center;padding:10px;background:rgba(16,185,129,0.05);border-radius:8px;">
+        <div style="font-size:16px;margin-bottom:4px;">🔬</div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;">Science</div>
+        <div style="font-size:10px;color:#64748b;">4 electives</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(59,130,246,0.05);border-radius:8px;">
+        <div style="font-size:16px;margin-bottom:4px;">🌍</div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;">General Arts</div>
+        <div style="font-size:10px;color:#64748b;">21 electives</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(245,158,11,0.05);border-radius:8px;">
+        <div style="font-size:16px;margin-bottom:4px;">📊</div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;">Business</div>
+        <div style="font-size:10px;color:#64748b;">5 electives</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(239,68,68,0.05);border-radius:8px;">
+        <div style="font-size:16px;margin-bottom:4px;">⚙️</div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;">Vocational</div>
+        <div style="font-size:10px;color:#64748b;">8 electives</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:rgba(236,72,153,0.05);border-radius:8px;">
+        <div style="font-size:16px;margin-bottom:4px;">🏠</div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;">Home Econ.</div>
+        <div style="font-size:10px;color:#64748b;">3 electives</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

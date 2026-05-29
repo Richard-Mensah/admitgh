@@ -25,24 +25,97 @@ export const MIN_PASS_VALUE = GRADE_VALUE[MIN_PASS_GRADE] // 6
 
 // ─── Tracks ──────────────────────────────────────────────────────────────────
 
-export const TRACKS = ["science", "arts", "business", "vocational", "general"] as const
+export const TRACKS = [
+  "science",
+  "general_arts",
+  "business",
+  "home_economics",
+  "technical",
+  "visual_arts",
+] as const
 export type Track = (typeof TRACKS)[number]
 
 export const TRACK_LABEL: Record<Track, string> = {
-  science: "Science",
-  arts: "Arts / Humanities",
-  business: "Business",
-  vocational: "Vocational / Technical",
-  general: "General Arts",
+  science:        "Science",
+  general_arts:   "General Arts",
+  business:       "Business",
+  home_economics: "Home Economics",
+  technical:      "Technical",
+  visual_arts:    "Visual Arts",
 }
 
-// Core subjects per track (first 3 are always English, Maths, one science/social)
-export const CORE_SUBJECTS: Record<Track, [string, string, string]> = {
-  science: ["English Language", "Core Mathematics", "Integrated Science"],
-  arts: ["English Language", "Core Mathematics", "Social Studies"],
-  business: ["English Language", "Core Mathematics", "Social Studies"],
-  vocational: ["English Language", "Core Mathematics", "Social Studies"],
-  general: ["English Language", "Core Mathematics", "Social Studies"],
+// Core subjects per track — all 4 are compulsory for every track in WASSCE Ghana
+export const CORE_SUBJECTS: Record<Track, [string, string, string, string]> = {
+  science:        ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+  general_arts:   ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+  business:       ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+  home_economics: ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+  technical:      ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+  visual_arts:    ["English Language", "Core Mathematics", "Social Studies", "Integrated Science"],
+}
+
+// Named elective subjects per track — used to render grade cards in ElectiveGrid
+export const ELECTIVE_SUBJECTS: Record<Track, readonly string[]> = {
+  science: [
+    "Physics",
+    "Chemistry",
+    "Biology",
+    "Elective Mathematics",
+    "Elective ICT",
+    "Geography",
+  ],
+  general_arts: [
+    "Literature in English",
+    "History",
+    "Geography",
+    "Government",
+    "Economics",
+    "French",
+    "Christian Religious Studies",
+    "Islamic Religious Studies",
+    "Elective Mathematics",
+    "General Knowledge in Art",
+    "Elective ICT",
+    "Twi (Asante)",
+    "Twi (Akuapem)",
+    "Fante",
+    "Ga",
+    "Ewe",
+    "Dagbani",
+    "Nzema",
+    "Dangme",
+    "Dagaare",
+    "Gonja",
+    "Kasem",
+  ],
+  business: [
+    "Financial Accounting",
+    "Cost Accounting",
+    "Business Management",
+    "Economics",
+    "Elective Mathematics",
+  ],
+  home_economics: [
+    "Food and Nutrition",
+    "Management in Living",
+    "Clothing and Textiles",
+  ],
+  technical: [
+    "Technical Drawing",
+    "Building Construction",
+    "Auto Mechanics",
+    "Applied Electricity",
+    "Woodwork",
+    "Elective Mathematics",
+    "Physics",
+  ],
+  visual_arts: [
+    "General Knowledge in Art",
+    "Picture Making & Graphic Design",
+    "Textiles",
+    "Sculpture",
+    "Leatherwork",
+  ],
 }
 
 // ─── Institution Types ────────────────────────────────────────────────────────

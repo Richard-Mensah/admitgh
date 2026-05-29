@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electives Per Track v2 — Review</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #060b14;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #f1f5f9;
+    padding: 32px 20px 60px;
+    min-height: 100vh;
+  }
+  h2 { font-size: 22px; font-weight: 800; color: #f1f5f9; margin-bottom: 6px; text-align: center; }
+  .sub { font-size: 13px; color: #64748b; margin-bottom: 32px; text-align: center; }
+
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .track-card {
+    background: rgba(15,23,42,0.7);
+    border: 1.5px solid #1e293b;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .track-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .track-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .track-title { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+  .track-subtitle { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+  .track-body { padding: 14px 18px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #475569;
+    margin-bottom: 8px;
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #1e293b; }
+
+  .subject-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 10px;
+    background: rgba(30,41,59,0.4);
+    border-radius: 7px;
+    margin-bottom: 5px;
+    gap: 10px;
+  }
+  .subject-name { font-size: 12px; color: #e2e8f0; font-weight: 500; flex: 1; }
+  .subject-type {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .type-elective { background: rgba(20,184,166,0.1); color: #5eead4; }
+  .type-lang { background: rgba(139,92,246,0.15); color: #a78bfa; }
+
+  .change-badge {
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .badge-new { background: rgba(16,185,129,0.15); color: #34d399; }
+  .badge-removed { background: rgba(239,68,68,0.1); color: #f87171; text-decoration: line-through; }
+
+  .removed-row { opacity: 0.4; }
+  .removed-row .subject-name { text-decoration: line-through; color: #64748b; }
+</style>
+</head>
+<body>
+
+<h2>Elective Subjects — Updated v2</h2>
+<p class="sub">Arts removed · Science trimmed · Business cleaned · General Arts expanded with Home Economics + all WASSCE languages</p>
+
+<div class="tracks-grid">
+
+  <!-- Science -->
+  <div class="track-card" style="border-color:rgba(16,185,129,0.3);">
+    <div class="track-header" style="background:rgba(16,185,129,0.07);">
+      <div class="track-icon" style="background:rgba(16,185,129,0.15);">🔬</div>
+      <div>
+        <div class="track-title">Science</div>
+        <div class="track-subtitle">4 electives — Elective Science removed</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Physics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Chemistry</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Biology</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row removed-row"><span class="subject-name">Elective Science</span><span class="change-badge badge-removed">Removed</span></div>
+    </div>
+  </div>
+
+  <!-- Arts — REMOVED -->
+  <div class="track-card" style="border-color:rgba(239,68,68,0.2);opacity:0.45;">
+    <div class="track-header" style="background:rgba(239,68,68,0.05);">
+      <div class="track-icon" style="background:rgba(239,68,68,0.1);">🎭</div>
+      <div>
+        <div class="track-title" style="color:#f87171;">Arts — REMOVED</div>
+        <div class="track-subtitle">Same as General Arts in Ghana — merged</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div style="font-size:12px;color:#64748b;padding:8px 0;">This track has been removed. All Arts subjects now live under General Arts.</div>
+    </div>
+  </div>
+
+  <!-- Business -->
+  <div class="track-card" style="border-color:rgba(245,158,11,0.3);">
+    <div class="track-header" style="background:rgba(245,158,11,0.07);">
+      <div class="track-icon" style="background:rgba(245,158,11,0.15);">📊</div>
+      <div>
+        <div class="track-title">Business</div>
+        <div class="track-subtitle">5 electives — Office Employment removed</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Financial Accounting</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Cost Accounting</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Business Management</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Economics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row removed-row"><span class="subject-name">Office Employment</span><span class="change-badge badge-removed">Removed</span></div>
+    </div>
+  </div>
+
+  <!-- Vocational -->
+  <div class="track-card" style="border-color:rgba(239,68,68,0.3);">
+    <div class="track-header" style="background:rgba(239,68,68,0.07);">
+      <div class="track-icon" style="background:rgba(239,68,68,0.15);">⚙️</div>
+      <div>
+        <div class="track-title">Vocational</div>
+        <div class="track-subtitle">8 electives — unchanged</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <div class="section-label">Electives</div>
+      <div class="subject-row"><span class="subject-name">Electronics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Auto Mechanics</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Building Construction</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Woodwork</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Textiles</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Catering</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Visual Arts</span><span class="subject-type type-elective">Elective</span></div>
+      <div class="subject-row"><span class="subject-name">Technical Drawing</span><span class="subject-type type-elective">Elective</span></div>
+    </div>
+  </div>
+
+  <!-- General Arts — expanded -->
+  <div class="track-card" style="border-color:rgba(59,130,246,0.35);grid-column: span 2;">
+    <div class="track-header" style="background:rgba(59,130,246,0.07);">
+      <div class="track-icon" style="background:rgba(59,130,246,0.15);">🌍</div>
+      <div>
+        <div class="track-title">General Arts <span style="font-size:11px;color:#34d399;font-weight:600;margin-left:8px;">Expanded</span></div>
+        <div class="track-subtitle">Replaces Arts · 22 electives total: core arts + Home Economics + 11 Ghanaian languages</div>
+      </div>
+    </div>
+    <div class="track-body">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+        <!-- Column 1: Arts electives -->
+        <div>
+          <div class="section-label">Arts electives</div>
+          <div class="subject-row"><span class="subject-name">Literature in English</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">History</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Geography</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Government</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Economics</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">French</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Christian Religious Studies</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Islamic Religious Studies</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row"><span class="subject-name">Elective Mathematics</span><span class="subject-type type-elective">Elective</span></div>
+          <div class="subject-row">
+            <span class="subject-name">Home Economics</span>
+            <span class="subject-type type-elective">Elective</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Twi languages -->
+        <div>
+          <div class="section-label">Ghanaian Languages</div>
+          <div class="subject-row">
+            <span class="subject-name">Twi (Asante)</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Twi (Akuapem)</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Fante</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Ga</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Ewe</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Dagbani</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+        </div>
+
+        <!-- Column 3: More languages -->
+        <div>
+          <div class="section-label" style="opacity:0;">—</div>
+          <div class="subject-row">
+            <span class="subject-name">Nzema</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Dangme</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Dagaare</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Gonja</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+          <div class="subject-row">
+            <span class="subject-name">Kasem</span>
+            <span class="subject-type type-lang">Language</span>
+            <span class="change-badge badge-new">New</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div style="max-width:1100px;margin:24px auto 0;">
+  <div style="background:rgba(20,184,166,0.05);border:1px solid rgba(20,184,166,0.2);border-radius:12px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start;">
+    <div style="font-size:22px;flex-shrink:0;">📌</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#5eead4;margin-bottom:6px;">Summary of changes</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.8;">
+        ✅ <strong style="color:#94a3b8;">Science</strong> — Elective Science removed. 4 electives remain.<br>
+        ❌ <strong style="color:#94a3b8;">Arts</strong> — Track removed entirely. Merged into General Arts.<br>
+        ✅ <strong style="color:#94a3b8;">Business</strong> — Office Employment removed. 5 electives remain.<br>
+        ✅ <strong style="color:#94a3b8;">Vocational</strong> — No changes.<br>
+        ✅ <strong style="color:#94a3b8;">General Arts</strong> — Expanded to 22 electives: core arts + Home Economics + 11 WASSCE Ghanaian languages (Twi Asante, Twi Akuapem, Fante, Ga, Ewe, Dagbani, Nzema, Dangme, Dagaare, Gonja, Kasem).
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

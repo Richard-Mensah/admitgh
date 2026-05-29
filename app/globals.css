@@ -113,6 +113,49 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* ─── Check page — glassmorphism card shell ──────────────────────────────── */
+.check-page {
+  background: #060b14;
+  /* Override CSS variables so all child components use dark values */
+  --background: #0a0f1a;
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --card-bg: #0f172a;
+}
+
+.glass-card-check {
+  background: rgba(15, 23, 42, 0.7);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(20, 184, 166, 0.05);
+  overflow: hidden;
+}
+
+.live-bar {
+  background: rgba(20, 184, 166, 0.07);
+  border-bottom: 1px solid rgba(20, 184, 166, 0.12);
+}
+
+.section-border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.check-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.step-connector-done {
+  background: linear-gradient(90deg, #14b8a6, #14b8a6);
+}
+
+.step-connector-pending {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 /* ─── Gradient text ──────────────────────────────────────────────────────── */
 .text-gradient-brand {
   background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 100%);
