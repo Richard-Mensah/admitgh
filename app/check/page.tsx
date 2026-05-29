@@ -18,30 +18,33 @@ export default function CheckPage() {
 
         {/* ── Hero ── SHS photo + dark overlay + catch text ─────────────── */}
         <div className="check-hero-img relative">
-          <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:py-20 text-center">
+          <div className="relative z-10 mx-auto max-w-3xl px-5 pt-10 pb-14 sm:pt-16 sm:pb-20 text-center">
 
             {/* Badge */}
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white/90 backdrop-blur-sm mb-6">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-300" aria-hidden="true" />
-              WASSCE Admission Intelligence
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] sm:text-xs font-semibold text-white/90 backdrop-blur-sm mb-5">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-300 shrink-0" aria-hidden="true" />
+              WASSCE Admission Intelligence · Ghana
             </span>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-[1.85rem] leading-tight sm:text-5xl font-extrabold tracking-tight text-white">
               Know Where You Stand
             </h1>
-            <p className="mt-3 text-lg sm:text-xl font-semibold text-white/70">
+            <p className="mt-2 text-base sm:text-xl font-semibold text-white/70">
               Before Results Day
             </p>
 
-            {/* Sub-copy */}
-            <p className="mt-4 max-w-xl mx-auto text-sm sm:text-base text-white/60 leading-relaxed">
+            {/* Sub-copy — hidden on very small screens to keep it clean */}
+            <p className="hidden sm:block mt-4 max-w-xl mx-auto text-sm sm:text-base text-white/60 leading-relaxed">
               Enter your WASSCE grades and discover your real admission probability
               at every Ghanaian university — powered by years of official cut-off data.
             </p>
+            <p className="sm:hidden mt-3 text-xs text-white/55 leading-relaxed">
+              WASSCE grades → honest admission probability at every Ghanaian university.
+            </p>
 
             {/* Step pills */}
-            <div className="flex flex-wrap justify-center items-center gap-2 mt-7 text-xs">
+            <div className="flex flex-wrap justify-center items-center gap-1.5 mt-6 text-[11px] sm:text-xs">
               <span className="rounded-full bg-brand-500 px-3 py-1.5 text-white font-semibold shadow">
                 1 · Enter grades
               </span>

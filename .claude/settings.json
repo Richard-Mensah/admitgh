@@ -14,7 +14,8 @@
       "Read(//tmp/**)",
       "WebSearch",
       "WebFetch(domain:www.pexels.com)",
-      "Bash(curl -s http://localhost:3000/check)"
+      "Bash(curl -s http://localhost:3000/check)",
+      "WebFetch(domain:wiawsosectech.edu.gh)"
     ]
   }
 }

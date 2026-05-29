@@ -113,19 +113,28 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ─── Check page hero — SHS group photo + dark teal overlay ─────────────── */
+/* ─── Check page hero — real Ghana SHS photo + dark teal overlay ─────────── */
 .check-hero-img {
+  background-color: #042f2e; /* fallback while image loads */
   background-image:
     linear-gradient(
       to bottom,
-      rgba(2, 44, 34, 0.80) 0%,
-      rgba(13, 148, 136, 0.60) 55%,
-      rgba(15, 23, 42, 0.30) 100%
+      rgba(2, 44, 34, 0.82) 0%,
+      rgba(13, 148, 136, 0.58) 60%,
+      rgba(248, 250, 252, 1) 100%
     ),
-    url('https://images.pexels.com/photos/9424263/pexels-photo-9424263.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    url('https://wiawsosectech.edu.gh/wp-content/uploads/2024/04/IMG_6016-scaled.jpg');
   background-size: cover;
-  background-position: center top;
+  background-position: center 30%;
   background-repeat: no-repeat;
+  /* mobile: smaller padding handled by Tailwind py-* classes */
+}
+
+/* Slightly shift focus on narrow screens so students stay in frame */
+@media (max-width: 640px) {
+  .check-hero-img {
+    background-position: 45% 25%;
+  }
 }
 
 /* ─── Check page — artistic aurora background ────────────────────────────── */
