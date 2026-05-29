@@ -191,7 +191,7 @@ export default function GradeInputForm() {
           <p className="text-xs text-[var(--muted)]">
             {isComplete
               ? "All grades filled — ready to check!"
-              : "Fill all 6 grades to unlock results"}
+              : "Fill 4 core + 3 elective grades to unlock results"}
           </p>
           <Button
             type="button"
@@ -207,7 +207,7 @@ export default function GradeInputForm() {
 
         <div className="mt-4 rounded-xl border border-amber-800/30 bg-amber-950/20 px-4 py-3 text-xs text-amber-400/80 leading-relaxed">
           <span className="font-semibold text-amber-300">How we calculate:</span>{" "}
-          Aggregate = 3 core + best 3 elective grades (lower is better). Probability
+          Aggregate = 4 core + best 3 elective grades — best 6 count (lower is better). Probability
           uses 4-year cut-off history, competition data, and trend direction.
         </div>
 
