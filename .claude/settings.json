@@ -15,7 +15,14 @@
       "WebSearch",
       "WebFetch(domain:www.pexels.com)",
       "Bash(curl -s http://localhost:3000/check)",
-      "WebFetch(domain:wiawsosectech.edu.gh)"
+      "WebFetch(domain:wiawsosectech.edu.gh)",
+      "Bash(mkdir -p \"c:\\\\Users\\\\joe\\\\Documents\\\\GitHub\\\\admitgh\\\\public\\\\images\" && echo \"done\")",
+      "PowerShell($file = \"C:\\\\Users\\\\joe\\\\.claude\\\\projects\\\\c--Users-joe-Documents-GitHub-admitgh\\\\a02fb169-90b3-4adb-a1a2-b481f2d11120.jsonl\"; Get-Item $file -ErrorAction SilentlyContinue | Select-Object Length; Get-Content $file -Tail 3 | ForEach-Object { $_.Substring\\(0, [Math]::Min\\(200, $_.Length\\)\\) })",
+      "Bash(grep -o '\"source\":{\"type\":\"base64\",\"media_type\":\"image/[^\"]*\",\"data\":\"[^\"]*\"' \"C:/Users/joe/.claude/projects/c--Users-joe-Documents-GitHub-admitgh/a02fb169-90b3-4adb-a1a2-b481f2d11120.jsonl\")",
+      "Bash(python3 -c ' *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\joe\\Documents\\GitHub\\admitgh\\public"
     ]
   }
 }
